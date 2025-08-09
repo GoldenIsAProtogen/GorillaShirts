@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using GorillaNetworking;
+using Photon.Pun;
 
 #if PLUGIN
 using GorillaShirts.Extensions;
