@@ -139,6 +139,8 @@ namespace GorillaShirts.Behaviours.UI
 
         private bool uberMaterialsUsed = false;
 
+        private bool isInMines = false;
+
         public void Start()
         {
             Type baseType = typeof(Location_Base);
@@ -195,6 +197,28 @@ namespace GorillaShirts.Behaviours.UI
             Root.transform.position = position;
             Root.transform.rotation = Quaternion.Euler(direction);
             Root.SetActive(true);
+        }
+
+        public void Update()
+        {
+            if (!PhotonNetwork.InRoom || PhotonNetworkController.Instance?.currentJoinTrigger == null)
+                return;
+        
+            string zoneStr = PhotonNetworkController.Instance.currentJoinTrigger.networkZone;
+        
+            if (Enum.TryParse(zoneStr, out GTZone currentZone))
+            {
+                if (currentZone == GTZone.mines && !isInMines)
+                {
+                    Location_Mines minesLocation = new Location_Mines();
+                    MoveStand(minesLocation.Position, minesLocation.EulerAngles);
+                    isInMines = true;
+                }
+                else if (currentZone != GTZone.mines && isInMines)
+                {
+                    isInMines = false;
+                }
+            }
         }
 #endif
     }
