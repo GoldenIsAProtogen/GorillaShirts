@@ -274,7 +274,7 @@ namespace GorillaShirts.Behaviours.Appearance
             }
         }
 
-        internal void MoveNameTagTransform(Transform transform, float offset)
+        public virtual void MoveNameTagTransform(Transform transform, float offset)
         {
             Vector3 offsetVector = transform.localPosition;
             offsetVector.z = (float)-offset * 5;
